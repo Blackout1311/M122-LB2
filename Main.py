@@ -38,6 +38,9 @@ with open("index.html", "w")as html_file:
     html_file.write(html_content)
     print("html file was created successfully")
 
+time.sleep(2)
+webbrowser.open_new_tab("index.html")
+
 with yagmail.SMTP(user, app_password) as yag:
     yag.send(to, subject, content)
     print('Sent email successfully')
