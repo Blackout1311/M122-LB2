@@ -1,6 +1,7 @@
 import requests
 import json
 from urllib.request import urlopen
+import yagmail
 
 API_KEY = "1156afb1ccaf38803781a34203a1daca"
 
@@ -12,9 +13,22 @@ def getcity():
     return city
 
 
+
+user = 'mikka.widmer.06@gmail.com'
+app_password = 'cwxfiatasaasahxl' # a token for gmail
+to = 'mikka.widmer.06@gmail.com'
+
 url = f'https://api.openweathermap.org/data/2.5/weather?q={getcity()}&appid={API_KEY}&units=metric'
 data = requests.get(url).json()
 temp = data['main']['temp']
 humidity = data['main']['humidity']
 
-print(f'In {getcity()} beträgt die Temperatur {temp}°. Die Luftfeuchtigkeit beträgt {humidity}.')
+print(f'In {getcity()} beträgt die Temperatur {temp}°. Die Luftfeuchtigkeit beträgt {humidity}%.')
+
+subject = 'Weather'
+content = [f'In {getcity()} beträgt die Temperatur {temp}°. Die Luftfeuchtigkeit beträgt {humidity}%.']
+
+with yagmail.SMTP(user, app_password) as yag:
+    yag.send(to, subject, content)
+    print('Sent email successfully')
+
