@@ -2,6 +2,8 @@ import requests
 import json
 from urllib.request import urlopen
 import yagmail
+import webbrowser
+import time
 
 API_KEY = "1156afb1ccaf38803781a34203a1daca"
 
@@ -23,10 +25,18 @@ data = requests.get(url).json()
 temp = data['main']['temp']
 humidity = data['main']['humidity']
 
+
+
 print(f'In {getcity()} beträgt die Temperatur {temp}°. Die Luftfeuchtigkeit beträgt {humidity}%.')
 
 subject = 'Weather'
 content = [f'In {getcity()} beträgt die Temperatur {temp}°. Die Luftfeuchtigkeit beträgt {humidity}%.']
+
+html_content = f"<html> <head> </head> <h1>{content}</h1> <body> </body> </html>"
+
+with open("index.html", "w")as html_file:
+    html_file.write(html_content)
+    print("html file was created successfully")
 
 with yagmail.SMTP(user, app_password) as yag:
     yag.send(to, subject, content)
