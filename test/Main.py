@@ -89,5 +89,5 @@ def upload_pdf_ftp(server_address, username, password, filename):
 upload_pdf_ftp(server_address, username, password, filename)
 
 with yagmail.SMTP(user, app_password) as yag:
-    yag.send(to, subject, createPdf(content, today, image, homecontent, imagehome))
+    # yag.send(to, subject, createPdf(content, today, image))
     print('Sent email successfully')
